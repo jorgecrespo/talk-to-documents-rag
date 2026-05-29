@@ -1,6 +1,7 @@
 import json
 from dataclasses import dataclass
 from pathlib import Path
+from pypdf import PdfReader
 
 
 @dataclass(frozen=True)
@@ -22,13 +23,6 @@ def extract_pdf_pages(pdf_path: str | Path) -> list[PageText]:
 
     Empty pages are skipped.
     """
-
-    try:
-        from pypdf import PdfReader
-    except ModuleNotFoundError as exc:  # pragma: no cover - runtime dependency guard
-        raise ModuleNotFoundError(
-            "pypdf is required to extract PDFs. Install dependencies with `pip install -r requirements.txt`."
-        ) from exc
 
     path = Path(pdf_path)
     reader = PdfReader(str(path))
