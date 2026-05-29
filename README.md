@@ -8,3 +8,10 @@ Base del proyecto para procesar PDFs localmente.
 - extraer texto por página
 - partir texto en chunks
 - guardar resultados intermedios en `data/processed/`
+
+## Día 2
+
+- instalar dependencias con `pip install -r requirements.txt`
+- poner PDFs en `data/raw/`
+- ejecutar `python -m app.ingestion.indexer`
+- revisar el índice persistido en `data/chroma/`
