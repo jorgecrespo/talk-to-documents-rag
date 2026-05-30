@@ -20,3 +20,9 @@ Base del proyecto para procesar PDFs localmente.
 
 - consultar el índice con `python -m app.retrieval.retriever "tu pregunta"`
 - revisar los chunks devueltos con su archivo y página de origen
+
+## Día 4
+
+- configurar `OPENAI_API_KEY` en el entorno
+- preguntar con `python -m app.rag.qa_chain "tu pregunta"`
+- revisar la respuesta generada y las fuentes usadas
