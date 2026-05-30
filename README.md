@@ -15,3 +15,8 @@ Base del proyecto para procesar PDFs localmente.
 - poner PDFs en `data/raw/`
 - ejecutar `python -m app.ingestion.indexer`
 - revisar el índice persistido en `data/chroma/`
+
+## Día 3
+
+- consultar el índice con `python -m app.retrieval.retriever "tu pregunta"`
+- revisar los chunks devueltos con su archivo y página de origen
