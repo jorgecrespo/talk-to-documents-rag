@@ -1,35 +1,95 @@
 # talk-to-documents-rag
 
-Base del proyecto para procesar PDFs localmente.
+RAG local para consultar PDFs con Chroma, embeddings locales y OpenAI para la generación final.
 
-## Día 1
+## Qué hace
 
-- leer PDFs desde `data/raw/`
-- extraer texto por página
-- partir texto en chunks
-- guardar resultados intermedios en `data/processed/`
+- carga PDFs desde `data/raw/`
+- extrae texto por página
+- divide el texto en chunks
+- persiste los chunks en Chroma dentro de `data/chroma/`
+- recupera contexto relevante por similitud
+- responde preguntas con OpenAI usando ese contexto
+- expone una UI simple en Streamlit
 
-## Día 2
+## Stack
 
-- instalar dependencias con `pip install -r requirements.txt`
-- poner PDFs en `data/raw/`
-- ejecutar `python -m app.ingestion.indexer`
-- revisar el índice persistido en `data/chroma/`
+- Python
+- Streamlit
+- Chroma
+- `sentence-transformers`
+- `BAAI/bge-small-en-v1.5`
+- OpenAI API
+- `pypdf`
 
-## Día 3
+## Flujo
 
-- consultar el índice con `python -m app.retrieval.retriever "tu pregunta"`
-- revisar los chunks devueltos con su archivo y página de origen
+1. `loader.py` lee los PDFs.
+2. `chunking.py` divide el texto en fragmentos.
+3. `indexer.py` genera embeddings y guarda todo en Chroma.
+4. `retriever.py` busca los chunks más relevantes.
+5. `qa_chain.py` arma el prompt y consulta a OpenAI.
+6. `streamlit_app.py` conecta la carga, el índice y las preguntas.
 
-## Día 4
+## Estructura
 
-- configurar `OPENAI_API_KEY` en el entorno
-- preguntar con `python -m app.rag.qa_chain "tu pregunta"`
-- revisar la respuesta generada y las fuentes usadas
+```txt
+talk-to-documents-rag/
+├── app/
+│   ├── ingestion/
+│   ├── retrieval/
+│   ├── rag/
+│   └── ui/
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   └── chroma/
+├── README.md
+├── requirements.txt
+├── .env.example
+└── .gitignore
+```
 
-## Día 5
+## Cómo correrlo
 
-- ejecutar la UI con `streamlit run app/ui/streamlit_app.py`
-- subir PDFs desde la pestaña de carga
-- indexar documentos desde la interfaz
-- hacer preguntas desde la pestaña de consulta
+### 1. Instalar dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Configurar OpenAI
+
+```bash
+export OPENAI_API_KEY="tu_api_key"
+```
+
+### 3. Indexar documentos
+
+```bash
+python -m app.ingestion.indexer
+```
+
+### 4. Probar retrieval
+
+```bash
+python -m app.retrieval.retriever "tu pregunta"
+```
+
+### 5. Probar QA
+
+```bash
+python -m app.rag.qa_chain "tu pregunta"
+```
+
+### 6. Abrir la UI
+
+```bash
+streamlit run streamlit_app.py
+```
+
+## Notas
+
+- `data/processed/` guarda salidas intermedias para inspección.
+- `data/chroma/` contiene el índice persistente.
+- La UI permite subir PDFs, indexarlos y hacer preguntas sobre ellos.
