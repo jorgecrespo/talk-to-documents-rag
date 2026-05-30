@@ -26,3 +26,10 @@ Base del proyecto para procesar PDFs localmente.
 - configurar `OPENAI_API_KEY` en el entorno
 - preguntar con `python -m app.rag.qa_chain "tu pregunta"`
 - revisar la respuesta generada y las fuentes usadas
+
+## Día 5
+
+- ejecutar la UI con `streamlit run app/ui/streamlit_app.py`
+- subir PDFs desde la pestaña de carga
+- indexar documentos desde la interfaz
+- hacer preguntas desde la pestaña de consulta

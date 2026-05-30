@@ -7,5 +7,7 @@ __pycache__/
 .ruff_cache/
 data/processed/*
 !data/processed/.gitkeep
+data/chroma/*
+!data/chroma/.gitkeep
 data/raw/*
 !data/raw/.gitkeep
